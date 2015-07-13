@@ -155,7 +155,8 @@ class Site extends \ICanBoogie\ActiveRecord
 	 */
 	protected function volatile_get_url()
 	{
-		$parts = explode('.', $_SERVER['SERVER_NAME']);
+		$server_name = empty($_SERVER['SERVER_NAME']) ? php_uname("n") : $_SERVER['SERVER_NAME'];
+		$parts = explode('.', $server_name);
 		$parts = array_reverse($parts);
 
 		if ($this->tld)
@@ -340,8 +341,9 @@ class Site extends \ICanBoogie\ActiveRecord
 		{
 			return $this->_server_name;
 		}
-
-		$parts = explode('.', $_SERVER['SERVER_NAME']);
+		
+		$server_name = empty($_SERVER['SERVER_NAME']) ? php_uname("n") : $_SERVER['SERVER_NAME'];
+		$parts = explode('.', $server_name);
 		$parts = array_reverse($parts);
 
 		if (count($parts) > 3)
