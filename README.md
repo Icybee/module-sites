@@ -118,7 +118,7 @@ $app->request->context->site_id;
 
 ## Requirement
 
-The package requires PHP 5.4 or later.
+The package requires PHP 5.5 or later.
 
 
 
