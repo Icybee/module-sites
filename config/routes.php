@@ -1,25 +1,11 @@
 <?php
 
-return [
+namespace Icybee\Modules\Sites;
 
-	'!admin:manage' => [
+use Icybee\Routing\RouteMaker as Make;
 
-		'pattern' => '!auto',
-		'controller' => true
+return Make::admin('sites', Routing\SitesAdminController::class, [
 
-	],
+	'only' => [ 'index', 'create', 'edit' ]
 
-	'!admin:new' => [
-
-		'pattern' => '!auto',
-		'controller' => true
-
-	],
-
-	'!admin:edit' => [
-
-		'pattern' => '!auto',
-		'controller' => true
-
-	]
-];
+]);
