@@ -2,14 +2,16 @@
 
 namespace Icybee\Modules\Sites;
 
-$hooks = __NAMESPACE__ . '\Hooks::';
+use ICanBoogie\HTTP\RequestDispatcher;
+
+$hooks = Hooks::class . '::';
 
 return [
 
 	'events' => [
 
 		'ICanBoogie\Core::run' => $hooks . 'on_core_run',
-		'ICanBoogie\HTTP\Dispatcher::dispatch:before' => $hooks . 'before_http_dispatcher_dispatch'
+		RequestDispatcher::class . '::dispatch:before' => $hooks . 'before_http_dispatcher_dispatch'
 
 	],
 

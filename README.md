@@ -22,7 +22,7 @@ package are patched.
 
 
 
-### `ICanBoogie\HTTP\Dispatcher::dispatch:before`
+### `ICanBoogie\HTTP\RequestDispatcher::dispatch:before`
 
 Redirects the request to the first available website to the user if the request matches none.
 
@@ -118,7 +118,7 @@ $app->request->context->site_id;
 
 ## Requirement
 
-The package requires PHP 5.4 or later.
+The package requires PHP 5.5 or later.
 
 
 

@@ -14,7 +14,7 @@ namespace Icybee\Modules\Sites;
 use ICanBoogie\Core;
 use ICanBoogie\ActiveRecord;
 use ICanBoogie\Errors;
-use ICanBoogie\HTTP\Dispatcher;
+use ICanBoogie\HTTP\RequestDispatcher;
 use ICanBoogie\HTTP\RedirectResponse;
 use ICanBoogie\HTTP\Request;
 use ICanBoogie\Routing;
@@ -89,10 +89,10 @@ class Hooks
 	 *
 	 * Only online websites are used if the user is a guest or a member.
 	 *
-	 * @param Dispatcher\BeforeDispatchEvent $event
-	 * @param Dispatcher $target
+	 * @param RequestDispatcher\BeforeDispatchEvent $event
+	 * @param RequestDispatcher $target
 	 */
-	static public function before_http_dispatcher_dispatch(Dispatcher\BeforeDispatchEvent $event, Dispatcher $target)
+	static public function before_http_dispatcher_dispatch(RequestDispatcher\BeforeDispatchEvent $event, RequestDispatcher $target)
 	{
 		$app = \ICanBoogie\app();
 

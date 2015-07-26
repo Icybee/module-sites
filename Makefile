@@ -1,7 +1,7 @@
 # customization
 
-PACKAGE_NAME = Icybee/module-sites
-PACKAGE_VERSION = 2.1.0
+PACKAGE_NAME = icybee/module-sites
+PACKAGE_VERSION = 2.2.0
 
 # do not edit the following lines
 
@@ -28,12 +28,9 @@ doc: vendor
 	@mkdir -p build/docs
 	@apigen generate \
 	--source lib \
-	--exclude "*/composer/*" \
-	--exclude "*/autoload.php" \
 	--destination build/docs/ \
 	--title "$(PACKAGE_NAME) v$(PACKAGE_VERSION)" \
-	--template-theme "bootstrap" \
-	--debug
+	--template-theme "bootstrap"
 
 clean:
 	@rm -fR build
