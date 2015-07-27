@@ -72,6 +72,8 @@ class Model extends ActiveRecord\Model
 	 */
 	static public function find_by_request(Request $request)
 	{
+		/* @var $app \ICanBoogie\Core|\ICanBoogie\Binding\ActiveRecord\CoreBindings */
+
 		$app = \ICanBoogie\app();
 		$sites = self::$cached_sites;
 

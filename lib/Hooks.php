@@ -11,14 +11,21 @@
 
 namespace Icybee\Modules\Sites;
 
-use ICanBoogie\Core;
+use ICanBoogie\Binding\ActiveRecord\CoreBindings as ActiveRecordCoreBindings;
+use ICanBoogie\Binding\CLDR\CoreBindings as CLDRRecordCoreBindings;
 use ICanBoogie\ActiveRecord;
+use ICanBoogie\Core;
 use ICanBoogie\Errors;
 use ICanBoogie\HTTP\RequestDispatcher;
 use ICanBoogie\HTTP\RedirectResponse;
 use ICanBoogie\HTTP\Request;
 use ICanBoogie\Routing;
-use Icybee\Modules\Users\User;
+
+use Icybee\Modules\Members\Member;
+use Icybee\Modules\Nodes\Node;
+use Icybee\Modules\Users\Binding\CoreBindings as UserCoreBindings;
+use Icybee\Modules\Sites\Binding\ContextBindings;
+use Icybee\Modules\Sites\Binding\CoreBindings;
 
 class Hooks
 {
@@ -31,7 +38,7 @@ class Hooks
 	 * {@link Routing\decontextualize()} helpers are patched.
 	 *
 	 * @param Core\RunEvent $event
-	 * @param Core $target
+	 * @param Core|CoreBindings|ActiveRecordCoreBindings|CLDRRecordCoreBindings $target
 	 */
 	static public function on_core_run(Core\RunEvent $event, Core $target)
 	{
@@ -66,12 +73,12 @@ class Hooks
 
 		if ($path)
 		{
-			Routing\Helpers::patch('contextualize', function ($str) use ($path)
+			Routing\Helpers::patch('contextualize', function($str) use ($path)
 			{
 				return $path . $str;
 			});
 
-			Routing\Helpers::patch('decontextualize', function ($str) use ($path)
+			Routing\Helpers::patch('decontextualize', function($str) use ($path)
 			{
 				if (strpos($str, $path . '/') === 0)
 				{
@@ -94,7 +101,7 @@ class Hooks
 	 */
 	static public function before_http_dispatcher_dispatch(RequestDispatcher\BeforeDispatchEvent $event, RequestDispatcher $target)
 	{
-		$app = \ICanBoogie\app();
+		$app = self::app();
 
 		if ($app->site_id)
 		{
@@ -117,12 +124,10 @@ class Hooks
 
 		try
 		{
-			/* @var $user User */
-
 			$query = $app->models['sites']->order('weight');
 			$user = $app->user;
 
-			if ($user->is_guest || $user instanceof \Icybee\Modules\Members\Member)
+			if ($user->is_guest || $user instanceof Member)
 			{
 				$query->filter_by_status(Site::STATUS_OK);
 			}
@@ -173,21 +178,23 @@ class Hooks
 	 * $app->models['nodes']->one->site;
 	 * ```
 	 *
-	 * @param \Icybee\Modules\Nodes\Node $node
+	 * @param Node $node
 	 *
 	 * @return Site|null The site active record associate with the node,
 	 * or null if the node is not associated to a specific site.
 	 */
-	static public function get_node_site(\Icybee\Modules\Nodes\Node $node)
+	static public function get_node_site(Node $node)
 	{
 		if (!$node->siteid)
 		{
 			return null;
 		}
 
-		$app = \ICanBoogie\app();
+		$app = self::app();
 
-		return $app->site_id == $node->siteid ? $app->site : $app->models['sites'][$node->siteid];
+		return $app->site_id == $node->siteid
+			? $app->site
+			: $app->models['sites'][$node->siteid];
 	}
 
 	/**
@@ -201,7 +208,7 @@ class Hooks
 	 * $app->site;
 	 * ```
 	 *
-	 * @param Core $app
+	 * @param Core|CoreBindings $app
 	 *
 	 * @return Site
 	 */
@@ -213,16 +220,13 @@ class Hooks
 	/**
 	 * Returns the key of the current site.
 	 *
-	 * This is the getter for the core's {@link Site::site_id} magic
-	 * property.
-	 *
 	 * ```php
 	 * <?php
 	 *
 	 * $app->site_id;
 	 * ```
 	 *
-	 * @param Core $app
+	 * @param Core|CoreBindings $app
 	 *
 	 * @return int
 	 */
@@ -236,15 +240,13 @@ class Hooks
 	/**
 	 * Returns the site active record for a request.
 	 *
-	 * This is the getter for the {@link \ICanBoogie\HTTP\Request\Context::site} magic property.
-	 *
 	 * ```php
 	 * <?php
 	 *
 	 * $app->request->context->site;
 	 * ```
 	 *
-	 * @param Request\Context $context
+	 * @param Request\Context|ContextBindings $context
 	 *
 	 * @return Site
 	 */
@@ -256,20 +258,30 @@ class Hooks
 	/**
 	 * Returns the identifier of the site for a request.
 	 *
-	 * This is the getter for the {@link \ICanBoogie\HTTP\Request\Context::site_id} magic property.
-	 *
 	 * ```php
 	 * <?php
 	 *
 	 * $app->request->context->site_id;
 	 * ```
 	 *
-	 * @param Request\Context $context
+	 * @param Request\Context|ContextBindings $context
 	 *
 	 * @return int
 	 */
 	static public function get_site_id_for_request_context(Request\Context $context)
 	{
 		return $context->site ? $context->site->siteid : null;
+	}
+
+	/*
+	 * Support
+	 */
+
+	/**
+	 * @return Core|CoreBindings|ActiveRecordCoreBindings|UserCoreBindings
+	 */
+	static private function app()
+	{
+		return \ICanBoogie\app();
 	}
 }
