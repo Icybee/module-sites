@@ -14,6 +14,7 @@ namespace Icybee\Modules\Sites;
 use ICanBoogie\ActiveRecord;
 
 use Icybee\Modules\Pages\Page;
+use Icybee\Modules\Registry\Binding\SiteBindings as RegistryBindings;
 
 /**
  * Representation of a website.
@@ -35,6 +36,7 @@ use Icybee\Modules\Pages\Page;
  */
 class Site extends ActiveRecord
 {
+	use RegistryBindings;
 	use ActiveRecord\CreatedAtProperty;
 	use ActiveRecord\UpdatedAtProperty;
 
