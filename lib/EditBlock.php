@@ -11,6 +11,7 @@
 
 namespace Icybee\Modules\Sites;
 
+use Brickrouge\Document;
 use Brickrouge\Element;
 use Brickrouge\Form;
 use Brickrouge\Text;
@@ -21,7 +22,12 @@ use Brickrouge\Widget;
  */
 class EditBlock extends \Icybee\EditBlock
 {
-	static protected function add_assets(\Brickrouge\Document $document)
+	/**
+	 * Adds "public/admin.css".
+	 *
+	 * @inheritdoc
+	 */
+	static protected function add_assets(Document $document)
 	{
 		parent::add_assets($document);
 
@@ -108,7 +114,7 @@ class EditBlock extends \Icybee\EditBlock
 			'admin_title' => new Text([
 
 				Form::LABEL => 'Admin title',
-				Element::DESCRIPTION => "Il s'agit du titre utilisé par l'interface d'administration."
+				Element::DESCRIPTION => "Titre utilisé par l'interface d'administration."
 
 			]),
 

@@ -44,7 +44,7 @@ class LanguageColumn extends Column
 			$record,
 			$property,
 			$this->manager->is_filtering($property),
-			\ICanBoogie\capitalize(\ICanBoogie\app()->locale['languages'][$record->$property])
+			\ICanBoogie\capitalize($this->app->locale['languages'][$record->$property])
 		);
 	}
 }

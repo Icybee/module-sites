@@ -54,7 +54,7 @@ class Hooks
 		}
 		catch (ActiveRecord\StatementNotValid $e)
 		{
-			if (!$target->models['sites']->is_installed(new Errors))
+			if (!$target->models['sites']->is_installed())
 			{
 				return;
 			}
@@ -73,19 +73,21 @@ class Hooks
 
 		if ($path)
 		{
-			Routing\Helpers::patch('contextualize', function($str) use ($path)
-			{
+			Routing\Helpers::patch('contextualize', function($str) use ($path) {
+
 				return $path . $str;
+
 			});
 
-			Routing\Helpers::patch('decontextualize', function($str) use ($path)
-			{
+			Routing\Helpers::patch('decontextualize', function($str) use ($path) {
+
 				if (strpos($str, $path . '/') === 0)
 				{
 					$str = substr($str, strlen($path));
 				}
 
 				return $str;
+
 			});
 		}
 	}

@@ -12,15 +12,16 @@
 namespace Icybee\Modules\Sites;
 
 use ICanBoogie\ActiveRecord;
-use ICanBoogie\ActiveRecord\CreatedAtProperty;
-use ICanBoogie\ActiveRecord\UpdatedAtProperty;
+
+use Icybee\Modules\Pages\Page;
 
 /**
  * Representation of a website.
  *
+ * @property-read \ICanBoogie\Core $app
  * @property array $translations Translations for the site.
  *
- * @method Icybee\Modules\Pages\Page|null resolve_view_target() resolve_view_target(string $view)
+ * @method Page|null resolve_view_target() resolve_view_target(string $view)
  * Return the page on which the view is displayed, or null if the view is not displayed.
  *
  * This method is injected by the "pages" module.
@@ -29,15 +30,13 @@ use ICanBoogie\ActiveRecord\UpdatedAtProperty;
  *
  * This method is injected by the "pages" module.
  *
- * @property \ICanBoogie\DateTime $created_at Date and time at which the site was created.
- * @property \ICanBoogie\DateTime $updated_at Date and time at which the site was updated.
  * @property-read string $url
  * @property ServerName $server_name
  */
 class Site extends ActiveRecord
 {
-	use CreatedAtProperty;
-	use UpdatedAtProperty;
+	use ActiveRecord\CreatedAtProperty;
+	use ActiveRecord\UpdatedAtProperty;
 
 	const MODEL_ID = 'sites';
 
@@ -54,8 +53,6 @@ class Site extends ActiveRecord
 	const STATUS = 'status';
 	const CREATED_AT = 'created_at';
 	const UPDATED_AT = 'updated_at';
-
-	const BASE = '/protected/';
 
 	const STATUS_OK = 200;
 	const STATUS_UNAUTHORIZED = 401;

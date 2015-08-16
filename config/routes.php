@@ -6,6 +6,7 @@ use Icybee\Routing\RouteMaker as Make;
 
 return Make::admin('sites', Routing\SitesAdminController::class, [
 
-	'only' => [ 'index', 'create', 'edit' ]
+	'id_name' => 'siteid',
+	'only' => [ 'index', 'create', 'edit', 'confirm-delete' ]
 
 ]);
