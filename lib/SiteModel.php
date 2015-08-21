@@ -19,7 +19,7 @@ use ICanBoogie\HTTP\Request;
 /**
  * Models for Sites.
  */
-class Model extends ActiveRecord\Model
+class SiteModel extends ActiveRecord\Model
 {
 	/**
 	 * Makes sure that if defined the `path` property starts with a slash '/' but doesn't end

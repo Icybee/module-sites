@@ -50,7 +50,7 @@ class Hooks
 
 		try
 		{
-			$target->site = $site = Model::find_by_request($event->request);
+			$target->site = $site = SiteModel::find_by_request($event->request);
 		}
 		catch (ActiveRecord\StatementNotValid $e)
 		{
@@ -216,7 +216,7 @@ class Hooks
 	 */
 	static public function get_core_site(Core $app)
 	{
-		return Model::find_by_request($app->request ?: $app->initial_request);
+		return SiteModel::find_by_request($app->request ?: $app->initial_request);
 	}
 
 	/**
@@ -254,7 +254,7 @@ class Hooks
 	 */
 	static public function get_site_for_request_context(Request\Context $context)
 	{
-		return Model::find_by_request($context->request);
+		return SiteModel::find_by_request($context->request);
 	}
 
 	/**
