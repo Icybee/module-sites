@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Icybee\Modules\Sites;
+namespace Icybee\Modules\Sites\Operation;
 
 /**
  * Deletes a website.
  */
-class DeleteOperation extends \ICanBoogie\DeleteOperation
+class DeleteOperation extends \ICanBoogie\Module\Operation\DeleteOperation
 {
 	protected function process()
 	{

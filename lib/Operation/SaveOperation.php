@@ -9,14 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Icybee\Modules\Sites;
+namespace Icybee\Modules\Sites\Operation;
+
+use Icybee\Modules\Sites\Site;
 
 /**
  * Creates or updates a website.
  *
  * @property Site $record
  */
-class SaveOperation extends \ICanBoogie\SaveOperation
+class SaveOperation extends \ICanBoogie\Module\Operation\SaveOperation
 {
 	protected function process()
 	{

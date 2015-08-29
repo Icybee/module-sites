@@ -9,10 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Icybee\Modules\Sites;
+namespace Icybee\Modules\Sites\Operation;
 
 use ICanBoogie\Errors;
 use ICanBoogie\Operation;
+
+use Icybee\Modules\Sites\Module;
+use Icybee\Modules\Sites\Site;
 
 /**
  * Updates the status of a website.
