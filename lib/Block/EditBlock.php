@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Icybee\Modules\Sites;
+namespace Icybee\Modules\Sites\Block;
 
 use Brickrouge\Document;
 use Brickrouge\Element;
@@ -17,10 +17,12 @@ use Brickrouge\Form;
 use Brickrouge\Text;
 use Brickrouge\Widget;
 
+use Icybee\Modules\Sites\Site;
+
 /**
  * @property array $languages
  */
-class EditBlock extends \Icybee\EditBlock
+class EditBlock extends \Icybee\Block\EditBlock
 {
 	/**
 	 * Adds "public/admin.css".
@@ -31,7 +33,7 @@ class EditBlock extends \Icybee\EditBlock
 	{
 		parent::add_assets($document);
 
-		$document->css->add(DIR . 'public/admin.css');
+		$document->css->add(\Icybee\Modules\Sites\DIR . 'public/admin.css');
 	}
 
 	protected function lazy_get_languages()

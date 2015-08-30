@@ -9,13 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Icybee\Modules\Sites\ManageBlock;
+namespace Icybee\Modules\Sites\Block\ManageBlock;
 
 use Brickrouge\DropdownMenu;
 
-use Icybee\ManageBlock\Column;
-use Icybee\ManageBlock\EditDecorator;
-use Icybee\Modules\Sites\ManageBlock;
+use Icybee\Block\ManageBlock\Column;
+use Icybee\Modules\Sites\Block\ManageBlock;
 use Icybee\Modules\Sites\Site;
 
 /**

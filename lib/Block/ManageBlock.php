@@ -9,22 +9,23 @@
  * file that was distributed with this source code.
  */
 
-namespace Icybee\Modules\Sites;
+namespace Icybee\Modules\Sites\Block;
 
 use Brickrouge\Document;
-use Icybee\ManageBlock\DateTimeColumn;
+
+use Icybee\Block\ManageBlock\DateTimeColumn;
 
 /**
  * An element to manage websites.
  */
-class ManageBlock extends \Icybee\ManageBlock
+class ManageBlock extends \Icybee\Block\ManageBlock
 {
 	static public function add_assets(Document $document)
 	{
 		parent::add_assets($document);
 
-		$document->css->add(DIR . 'public/admin.css');
-		$document->js->add(DIR . 'public/admin.js');
+		$document->css->add(\Icybee\Modules\Sites\DIR . 'public/admin.css');
+		$document->js->add(\Icybee\Modules\Sites\DIR . 'public/admin.js');
 	}
 
 	public function __construct($module, array $attributes = [])
@@ -45,7 +46,7 @@ class ManageBlock extends \Icybee\ManageBlock
 	 * - `language`: An instance of {@link ManageBlock\LanguageColumn}.
 	 * - `status`: An instance of {@link ManageBlock\StatusColumn}.
 	 * - `timezone`: An instance of {@link ManageBlock\TimezoneColumn}.
-	 * - `update_at`: An instance of {@link \Icybee\ManageBlock\DateTimeColumn}.
+	 * - `update_at`: An instance of {@link \Icybee\Block\ManageBlock\DateTimeColumn}.
 	 */
 	protected function get_available_columns()
 	{

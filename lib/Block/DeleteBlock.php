@@ -9,12 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Icybee\Modules\Sites;
+namespace Icybee\Modules\Sites\Block;
+
+use Icybee\Modules\Sites\Site;
 
 /**
  * @property Site $record
  */
-class DeleteBlock extends \Icybee\DeleteBlock
+class DeleteBlock extends \Icybee\Block\DeleteBlock
 {
 	/**
 	 * Returns the title of the record.
