@@ -50,11 +50,12 @@ class Site extends ActiveRecord
 	const TITLE = 'title';
 	const ADMIN_TITLE = 'admin_title';
 	const LANGUAGE = 'language';
-	const TIMEZONE = 'tmezone';
+	const TIMEZONE = 'timezone';
 	const NATIVEID = 'nativeid';
 	const STATUS = 'status';
 	const CREATED_AT = 'created_at';
 	const UPDATED_AT = 'updated_at';
+	const EMAIL = 'email';
 
 	const STATUS_OK = 200;
 	const STATUS_UNAUTHORIZED = 401;
