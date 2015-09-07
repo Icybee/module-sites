@@ -92,3 +92,23 @@ class Update20131208 extends Update
 		$model('UPDATE {self} SET `status` = ? WHERE `status` = 0', [ Site::STATUS_UNAUTHORIZED ]);
 	}
 }
+
+/**
+ * - Renames column `siteid` as `site_id`.
+ *
+ * @module sites
+ */
+class Update20150908 extends Update
+{
+	/**
+	 * Renames column `siteid` as `site_id`, also revokes `cached_sites`.
+	 */
+	public function update_column_site_id()
+	{
+		$this->module->model
+			->assert_has_column('siteid')
+			->rename_column('siteid', 'site_id');
+
+		unset($this->app->vars['cached_sites']);
+	}
+}

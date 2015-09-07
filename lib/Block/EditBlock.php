@@ -213,8 +213,8 @@ class EditBlock extends \Icybee\Block\EditBlock
 	protected function get_control_translation_sources(array $values)
 	{
 		$options = $this->module->model
-		->select('siteid, concat(title, ":", language) title')
-		->where('siteid != ?', (int) $values['siteid'])
+		->select('site_id, concat(title, ":", language) title')
+		->where('site_id != ?', (int) $values['site_id'])
 		->pairs;
 
 		if (!$options)

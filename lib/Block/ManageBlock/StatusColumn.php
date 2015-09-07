@@ -61,7 +61,7 @@ class StatusColumn extends Column
 		$status = $record->status;
 		$status_label = isset($labels[$status]) ? $labels[$status] : "<em>Invalid status code: $status</em>";
 		$status_class = isset($classes[$status]) ? $classes[$status] : 'btn-danger';
-		$site_id = $record->siteid;
+		$site_id = $record->site_id;
 
 		$menu = new DropdownMenu([
 

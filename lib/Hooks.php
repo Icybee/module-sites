@@ -187,16 +187,16 @@ class Hooks
 	 */
 	static public function get_node_site(Node $node)
 	{
-		if (!$node->siteid)
+		if (!$node->site_id)
 		{
 			return null;
 		}
 
 		$app = self::app();
 
-		return $app->site_id == $node->siteid
+		return $app->site_id == $node->site_id
 			? $app->site
-			: $app->models['sites'][$node->siteid];
+			: $app->models['sites'][$node->site_id];
 	}
 
 	/**
@@ -236,7 +236,7 @@ class Hooks
 	{
 		$site = self::get_core_site($app);
 
-		return $site ? $site->siteid : null;
+		return $site ? $site->site_id : null;
 	}
 
 	/**
@@ -272,7 +272,7 @@ class Hooks
 	 */
 	static public function get_site_id_for_request_context(Request\Context $context)
 	{
-		return $context->site ? $context->site->siteid : null;
+		return $context->site ? $context->site->site_id : null;
 	}
 
 	/*

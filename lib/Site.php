@@ -42,7 +42,7 @@ class Site extends ActiveRecord
 
 	const MODEL_ID = 'sites';
 
-	const SITEID = 'siteid';
+	const SITE_ID = 'site_id';
 	const SUBDOMAIN = 'subdomain';
 	const DOMAIN = 'domain';
 	const PATH = 'path';
@@ -62,7 +62,7 @@ class Site extends ActiveRecord
 	const STATUS_NOT_FOUND = 404;
 	const STATUS_UNAVAILABLE = 503;
 
-	public $siteid;
+	public $site_id;
 	public $path = '';
 	public $tld = '';
 	public $domain = '';
@@ -147,13 +147,13 @@ class Site extends ActiveRecord
 		if ($this->nativeid)
 		{
 			return $this->model
-				->where('siteid != ? AND (siteid = ? OR nativeid = ?)', $this->siteid, $this->nativeid, $this->nativeid)
+				->where('site_id != ? AND (site_id = ? OR nativeid = ?)', $this->site_id, $this->nativeid, $this->nativeid)
 				->order('language')
 				->all;
 		}
 
 		return $this->model
-			->where('nativeid = ?', $this->siteid)
+			->where('nativeid = ?', $this->site_id)
 			->order('language')
 			->all;
 	}

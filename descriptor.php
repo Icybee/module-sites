@@ -15,7 +15,7 @@ return [
 
 			Model::SCHEMA => [
 
-				'siteid' => 'serial',
+				'site_id' => 'serial',
 				'path' => [ 'varchar', 80 ],
 				'tld' => [ 'varchar', 16 ],
 				'domain' => [ 'varchar', 80 ],
