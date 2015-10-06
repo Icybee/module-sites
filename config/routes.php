@@ -35,6 +35,6 @@ return [
 ] + Make::admin('sites', Routing\SitesAdminController::class, [
 
 	'id_name' => 'site_id',
-	'only' => [ 'index', 'create', 'edit', 'confirm-delete' ]
+	'only' => [ Make::ACTION_INDEX, Make::ACTION_NEW, Make::ACTION_EDIT, Make::ACTION_CONFIRM_DELETE ]
 
 ]);
