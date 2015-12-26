@@ -10,3 +10,6 @@
  */
 
 require __DIR__ . '/../vendor/autoload.php';
+
+$_SERVER['SERVER_NAME'] = 'server' . uniqid();
+$_SERVER['SERVER_PORT'] = 80;

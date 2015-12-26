@@ -42,9 +42,12 @@ class Site extends ActiveRecord
 
 	const MODEL_ID = 'sites';
 
+	/* properties */
+
 	const SITE_ID = 'site_id';
 	const SUBDOMAIN = 'subdomain';
 	const DOMAIN = 'domain';
+	const PREFER_SECURE = 'prefer_secure';
 	const PATH = 'path';
 	const TLD = 'tld';
 	const TITLE = 'title';
@@ -57,6 +60,8 @@ class Site extends ActiveRecord
 	const UPDATED_AT = 'updated_at';
 	const EMAIL = 'email';
 
+	/* values for STATUS */
+
 	const STATUS_OK = 200;
 	const STATUS_UNAUTHORIZED = 401;
 	const STATUS_NOT_FOUND = 404;
@@ -67,6 +72,16 @@ class Site extends ActiveRecord
 	public $tld = '';
 	public $domain = '';
 	public $subdomain = '';
+
+	/**
+	 * Whether the website prefers secure connections.
+	 *
+	 * *Note:* This property influences how the URL of the website is generated. If `true`
+	 * `https` is used instead of `http`.
+	 *
+	 * @var bool
+	 */
+	public $prefer_secure = false;
 	public $title;
 	public $admin_title = '';
 	public $weight = 0;
@@ -115,7 +130,7 @@ class Site extends ActiveRecord
 			unset($parts[2]);
 		}
 
-		$port = $_SERVER['SERVER_PORT'];
+		$port = isset($_SERVER['SERVER_PORT']) ? $_SERVER['SERVER_PORT'] : 80;
 
 		if ($port == 80)
 		{
@@ -127,7 +142,10 @@ class Site extends ActiveRecord
 			$port = ":$port";
 		}
 
-		return 'http://' . implode('.', array_reverse($parts)) . $port . $this->path;
+		return ($this->prefer_secure ? 'https://' : 'http://')
+		. implode('.', array_reverse($parts))
+		. $port
+		. $this->path;
 	}
 
 	protected function lazy_get_native()

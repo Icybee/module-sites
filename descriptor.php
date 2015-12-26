@@ -20,6 +20,7 @@ return [
 				'tld' => [ 'varchar', 16 ],
 				'domain' => [ 'varchar', 80 ],
 				'subdomain' => [ 'varchar', 80 ],
+				'prefer_secure' => 'boolean',
 				'title' => [ 'varchar', 80 ],
 				'admin_title' => [ 'varchar', 80 ],
 				'weight' => [ 'integer', 'unsigned' => true ],

@@ -17,6 +17,7 @@ use Brickrouge\Form;
 use Brickrouge\Text;
 use Brickrouge\Widget;
 
+use Icybee\Element\Group;
 use Icybee\Modules\Sites\Site;
 
 /**
@@ -108,21 +109,21 @@ class EditBlock extends \Icybee\Block\EditBlock
 
 			'title' => new Text([
 
-				Form::LABEL => 'Title',
+				Group::LABEL => 'Title',
 				Element::REQUIRED => true
 
 			]),
 
 			'admin_title' => new Text([
 
-				Form::LABEL => 'Admin title',
+				Group::LABEL => 'Admin title',
 				Element::DESCRIPTION => "Titre utilisé par l'interface d'administration."
 
 			]),
 
 			'email' => new Text([
 
-				Form::LABEL => 'Email',
+				Group::LABEL => 'Email',
 				Element::REQUIRED => true,
 				Element::VALIDATOR => [ 'Brickrouge\Form::validate_email' ],
 				Element::DESCRIPTION => "The site's email is usually used as default sender email,
@@ -132,7 +133,7 @@ class EditBlock extends \Icybee\Block\EditBlock
 
 			'subdomain' => new Text([
 
-				Form::LABEL => 'Sous-domaine',
+				Group::LABEL => 'Subdomain',
 				Element::GROUP => 'location',
 
 				'size' => 16,
@@ -142,7 +143,7 @@ class EditBlock extends \Icybee\Block\EditBlock
 
 			'domain' => new Text([
 
-				Form::LABEL => 'Domaine',
+				Group::LABEL => 'Domain',
 				Text::ADDON => '.',
 				Text::ADDON_POSITION => 'before',
 				Element::GROUP => 'location',
@@ -153,7 +154,7 @@ class EditBlock extends \Icybee\Block\EditBlock
 
 			'tld' => new Text([
 
-				Form::LABEL => 'TLD',
+				Group::LABEL => 'TLD',
 				Text::ADDON => '.',
 				Text::ADDON_POSITION => 'before',
 				Element::GROUP => 'location',
@@ -165,7 +166,7 @@ class EditBlock extends \Icybee\Block\EditBlock
 
 			'path' => new Text([
 
-				Form::LABEL => 'Chemin',
+				Group::LABEL => 'Path',
 				Text::ADDON => '/',
 				Text::ADDON_POSITION => 'before',
 				Element::GROUP => 'location',
@@ -176,7 +177,7 @@ class EditBlock extends \Icybee\Block\EditBlock
 
 			'language' => new Element('select', [
 
-				Form::LABEL => 'Langue',
+				Group::LABEL => 'Langue',
 				Element::REQUIRED => true,
 				Element::GROUP => 'i18n',
 				Element::OPTIONS => [ null => '' ] + $languages
@@ -187,16 +188,15 @@ class EditBlock extends \Icybee\Block\EditBlock
 
 			'timezone' => new Widget\TimeZone([
 
-				Form::LABEL => 'Fuseau horaire',
+				Group::LABEL => 'Time zone',
 				Element::GROUP => 'i18n',
-				Element::DESCRIPTION => "Par défaut, le fuseau horaire du serveur est
-				utilisé (actuellement&nbsp;: <q>" . ($tz ? $tz : 'non défini') . "</q>)."
+				Element::DESCRIPTION => "By default, the time zone is inherited from the server (currently&nbsp;: <q>" . ($tz ? $tz : 'not defined') . "</q>)."
 
 			]),
 
 			'status' => new Element('select', [
 
-				Form::LABEL => 'Status',
+				Group::LABEL => 'Status',
 				Element::GROUP => 'advanced',
 				Element::OPTIONS => [
 
@@ -206,6 +206,14 @@ class EditBlock extends \Icybee\Block\EditBlock
 					Site::STATUS_UNAVAILABLE => 'Unavailable'
 
 				]
+			]),
+
+			'prefer_secure' => new Element(Element::TYPE_CHECKBOX, [
+
+				Element::LABEL => "Prefer secure connections",
+				Element::GROUP => 'advanced',
+				Element::DESCRIPTION => "If checked, absolute URLs are created for HTTPS, and request using HTTP are redirected to use HTTPS."
+
 			])
 		]);
 	}

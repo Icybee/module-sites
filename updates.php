@@ -112,3 +112,20 @@ class Update20150908 extends Update
 		unset($this->app->vars['cached_sites']);
 	}
 }
+
+/**
+ * - Creates column `prefer_secure`.
+ *
+ * @module sites
+ */
+class Update20151226 extends Update
+{
+	public function update_create_column_prefer_secure()
+	{
+		$this->module->model
+			->assert_not_has_column('prefer_secure')
+			->create_column('prefer_secure');
+
+		unset($this->app->vars['cached_sites']);
+	}
+}
