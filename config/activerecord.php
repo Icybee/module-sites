@@ -2,7 +2,7 @@
 
 namespace Icybee\Modules\Sites;
 
-use ICanBoogie\Facets\DateTimeCriterion;
+use ICanBoogie\Facets\Criterion\DateCriterion;
 
 return [
 
@@ -10,7 +10,7 @@ return [
 
 		'sites' => [
 
-			'updated_at' => DateTimeCriterion::class
+			'updated_at' => DateCriterion::class
 
 		]
 
