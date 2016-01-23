@@ -93,12 +93,24 @@ class Site extends ActiveRecord
 
 	/**
 	 * Clears the sites cache.
+	 *
+	 * @inheritdoc
 	 */
-	public function save()
+	public function save(array $options = [])
 	{
 		unset($this->app->vars['cached_sites']);
 
-		return parent::save();
+		return parent::save($options);
+	}
+
+	public function create_validation_rules()
+	{
+		return parent::create_validation_rules() + [
+
+			'title' => 'required',
+			'status' => 'required|between:100;599'
+
+		];
 	}
 
 	/**

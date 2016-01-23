@@ -29,6 +29,11 @@ document.body.addEvent('click:relay([data-property="status"] .dropdown-menu a)',
 
 			Object.each(classNames, function(className) { toggle.removeClass(className) })
 			toggle.addClass(classNames[status])
+		},
+
+		onFailure: function(xhr, response)
+		{
+			alert(response.message || xhr.responseText)
 		}
 
 	}).put({ status: status })
