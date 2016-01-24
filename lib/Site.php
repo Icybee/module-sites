@@ -98,6 +98,13 @@ class Site extends ActiveRecord
 	 */
 	public function save(array $options = [])
 	{
+		if ($this->get_created_at()->is_empty)
+		{
+			$this->set_created_at('now');
+		}
+
+		$this->set_updated_at('now');
+
 		unset($this->app->vars['cached_sites']);
 
 		return parent::save($options);
@@ -108,7 +115,9 @@ class Site extends ActiveRecord
 		return parent::create_validation_rules() + [
 
 			'title' => 'required',
-			'status' => 'required|between:100;599'
+			'status' => 'required|between:100;599',
+			'email' => 'required|email',
+			'timezone' => 'timezone'
 
 		];
 	}

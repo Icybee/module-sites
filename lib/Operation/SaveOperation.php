@@ -17,6 +17,8 @@ use Icybee\Modules\Sites\Site;
  * Creates or updates a website.
  *
  * @property Site $record
+ *
+ * @property-read \ICanBoogie\Core|\Icybee\Modules\Sites\Binding\CoreBindings $app
  */
 class SaveOperation extends \ICanBoogie\Module\Operation\SaveOperation
 {
@@ -24,7 +26,7 @@ class SaveOperation extends \ICanBoogie\Module\Operation\SaveOperation
 	{
 		$rc = parent::process();
 
-		unset($this->app->vars['cached_sites']);
+		$this->ensure_app_is_up_to_date();
 
 		$this->response->message = $this->format($rc['mode'] == 'update' ? '%title has been updated in %module.' : '%title has been created in %module.', [
 
@@ -34,5 +36,19 @@ class SaveOperation extends \ICanBoogie\Module\Operation\SaveOperation
 		]);
 
 		return $rc;
+	}
+
+	protected function ensure_app_is_up_to_date()
+	{
+		$app = $this->app;
+
+		unset($app->vars['cached_sites']);
+
+		if ($app->site_id != $this->key)
+		{
+			return;
+		}
+
+		$app->site = $this->record;
 	}
 }

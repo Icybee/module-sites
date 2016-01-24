@@ -15,7 +15,6 @@ use ICanBoogie\Binding\ActiveRecord\CoreBindings as ActiveRecordCoreBindings;
 use ICanBoogie\Binding\CLDR\CoreBindings as CLDRRecordCoreBindings;
 use ICanBoogie\ActiveRecord;
 use ICanBoogie\Core;
-use ICanBoogie\Errors;
 use ICanBoogie\HTTP\RequestDispatcher;
 use ICanBoogie\HTTP\RedirectResponse;
 use ICanBoogie\HTTP\Request;
@@ -38,9 +37,9 @@ class Hooks
 	 * {@link Routing\decontextualize()} helpers are patched.
 	 *
 	 * @param Core\RunEvent $event
-	 * @param Core|CoreBindings|ActiveRecordCoreBindings|CLDRRecordCoreBindings $target
+	 * @param Core|CoreBindings|ActiveRecordCoreBindings|CLDRRecordCoreBindings $app
 	 */
-	static public function on_core_run(Core\RunEvent $event, Core $target)
+	static public function on_core_run(Core\RunEvent $event, Core $app)
 	{
 		#
 		# If the ICanBoogie\ActiveRecord\StatementNotValid is raised it might be because the
@@ -50,11 +49,11 @@ class Hooks
 
 		try
 		{
-			$target->site = $site = SiteModel::find_by_request($event->request);
+			$app->site = $site = SiteModel::find_by_request($event->request);
 		}
 		catch (ActiveRecord\StatementNotValid $e)
 		{
-			if (!$target->models['sites']->is_installed())
+			if (!$app->models['sites']->is_installed())
 			{
 				return;
 			}
@@ -62,24 +61,31 @@ class Hooks
 			throw $e;
 		}
 
-		$target->locale = $site->language;
+		$app->locale = $site->language;
 
 		if ($site->timezone)
 		{
-			$target->timezone = $site->timezone;
+			$app->timezone = $site->timezone;
 		}
 
 		$path = $site->path;
 
 		if ($path)
 		{
-			Routing\Helpers::patch('contextualize', function($str) use ($path) {
+			#
+			# The application is used rather than the path because the site path might be
+			# updated during the life time of the application.
+			#
 
-				return $path . $str;
+			Routing\Helpers::patch('contextualize', function($str) use ($app) {
+
+				return $app->site->path . $str;
 
 			});
 
-			Routing\Helpers::patch('decontextualize', function($str) use ($path) {
+			Routing\Helpers::patch('decontextualize', function($str) use ($app) {
+
+				$path = $app->site->path;
 
 				if (strpos($str, $path . '/') === 0)
 				{
