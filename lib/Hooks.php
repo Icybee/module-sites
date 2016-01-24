@@ -49,7 +49,7 @@ class Hooks
 
 		try
 		{
-			$app->site = $site = SiteModel::find_by_request($event->request);
+			$event->request->context->site = $site = SiteModel::find_by_request($event->request);
 		}
 		catch (ActiveRecord\StatementNotValid $e)
 		{
@@ -68,34 +68,29 @@ class Hooks
 			$app->timezone = $site->timezone;
 		}
 
-		$path = $site->path;
+		#
+		# The application is used rather than the path because the site path might be
+		# updated during the life time of the application.
+		#
 
-		if ($path)
-		{
-			#
-			# The application is used rather than the path because the site path might be
-			# updated during the life time of the application.
-			#
+		Routing\Helpers::patch('contextualize', function($url) use ($app) {
 
-			Routing\Helpers::patch('contextualize', function($str) use ($app) {
+			return $app->site->path . $url;
 
-				return $app->site->path . $str;
+		});
 
-			});
+		Routing\Helpers::patch('decontextualize', function($url) use ($app) {
 
-			Routing\Helpers::patch('decontextualize', function($str) use ($app) {
+			$path = $app->site->path;
 
-				$path = $app->site->path;
+			if ($path && strpos($url, $path . '/') === 0)
+			{
+				$url = substr($url, strlen($path));
+			}
 
-				if (strpos($str, $path . '/') === 0)
-				{
-					$str = substr($str, strlen($path));
-				}
+			return $url;
 
-				return $str;
-
-			});
-		}
+		});
 	}
 
 	/**
@@ -222,7 +217,7 @@ class Hooks
 	 */
 	static public function get_core_site(Core $app)
 	{
-		return SiteModel::find_by_request($app->request ?: $app->initial_request);
+		return $app->request->context['site'];
 	}
 
 	/**
@@ -240,9 +235,7 @@ class Hooks
 	 */
 	static public function get_core_site_id(Core $app)
 	{
-		$site = self::get_core_site($app);
-
-		return $site ? $site->site_id : null;
+		return $app->request->context['site_id'];
 	}
 
 	/**

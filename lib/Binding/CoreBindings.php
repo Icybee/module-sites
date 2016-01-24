@@ -16,8 +16,8 @@ use Icybee\Modules\Sites\Site;
 /**
  * {@link \ICanBoogie\Core} prototype bindings.
  *
- * @property Site $site
- * @property int $site_id
+ * @property-read Site $site
+ * @property-read int $site_id
  */
 trait CoreBindings
 {
