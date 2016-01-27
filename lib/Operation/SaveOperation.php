@@ -26,7 +26,7 @@ class SaveOperation extends \ICanBoogie\Module\Operation\SaveOperation
 	{
 		$rc = parent::process();
 
-		$this->ensure_app_is_up_to_date();
+		$this->ensure_context_is_up_to_date();
 
 		$this->response->message = $this->format($rc['mode'] == 'update' ? '%title has been updated in %module.' : '%title has been created in %module.', [
 
@@ -38,7 +38,7 @@ class SaveOperation extends \ICanBoogie\Module\Operation\SaveOperation
 		return $rc;
 	}
 
-	protected function ensure_app_is_up_to_date()
+	protected function ensure_context_is_up_to_date()
 	{
 		$app = $this->app;
 
@@ -49,6 +49,6 @@ class SaveOperation extends \ICanBoogie\Module\Operation\SaveOperation
 			return;
 		}
 
-		$app->site = $this->record;
+		$this->request->context['site'] = $this->record;
 	}
 }

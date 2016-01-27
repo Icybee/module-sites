@@ -5,6 +5,31 @@ namespace Icybee\Modules\Sites;
 class SiteTest extends \PHPUnit_Framework_TestCase
 {
 	/**
+	 * @dataProvider provide_test_path
+	 *
+	 * @param string $path
+	 * @param string $expected
+	 */
+	public function test_path($path, $expected)
+	{
+		$this->assertSame($expected, Site::from([ 'path' => $path ])->path);
+	}
+
+	public function provide_test_path()
+	{
+		return [
+
+			[ null, '' ],
+			[ '', '' ],
+			[ '/', '' ],
+			[ '/path/', '/path' ],
+			[ '/path', '/path' ],
+			[ 'path', '/path' ],
+
+		];
+	}
+
+	/**
 	 * @dataProvider provide_test_url
 	 *
 	 * @param string $expected_url

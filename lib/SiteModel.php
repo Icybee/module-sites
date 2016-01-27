@@ -13,7 +13,6 @@ namespace Icybee\Modules\Sites;
 
 use ICanBoogie\ActiveRecord;
 use ICanBoogie\Core;
-use ICanBoogie\DateTime;
 use ICanBoogie\HTTP\Request;
 use Icybee\Modules\Sites\Helpers\ProvideSites;
 
@@ -22,43 +21,6 @@ use Icybee\Modules\Sites\Helpers\ProvideSites;
  */
 class SiteModel extends ActiveRecord\Model
 {
-	/**
-	 * Makes sure that if defined the `path` property starts with a slash '/' but doesn't end
-	 * with one.
-	 *
-	 * Sets the `created_at` and `updated_at` properties if they are not defined.
-	 *
-	 * @inheritdoc
-	 */
-	public function save(array $properties, $key = null, array $options = [])
-	{
-		if (isset($properties['path']))
-		{
-			$path = trim($properties['path'], '/');
-
-			if ($path)
-			{
-				$path = '/' . $path;
-			}
-
-			$properties['path'] = $path;
-		}
-
-		if (!$key && empty($properties['created_at']))
-		{
-			$properties['created_at'] = DateTime::now();
-		}
-
-		if (empty($properties['updated_at']))
-		{
-			$properties['updated_at'] = DateTime::now();
-		}
-
-		return parent::save($properties, $key, $options);
-	}
-
-	static private $cached_sites;
-
 	/**
 	 * Finds a site using a request.
 	 *

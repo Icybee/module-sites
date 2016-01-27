@@ -32,6 +32,7 @@ use Icybee\Modules\Registry\Binding\SiteBindings as RegistryBindings;
  * This method is injected by the "pages" module.
  *
  * @property-read string $url
+ * @property string $path
  * @property ServerName $server_name
  */
 class Site extends ActiveRecord
@@ -68,7 +69,28 @@ class Site extends ActiveRecord
 	const STATUS_UNAVAILABLE = 503;
 
 	public $site_id;
-	public $path = '';
+	private $path = '';
+
+	/**
+	 * @return string
+	 */
+	protected function get_path()
+	{
+		return $this->path;
+	}
+
+	/**
+	 * Ensures that if not empty the string is prefixed with "/".
+	 *
+	 * @param $path
+	 */
+	protected function set_path($path)
+	{
+		$path = trim($path, '/');
+
+		$this->path = $path ? "/$path" : $path;
+	}
+
 	public $tld = '';
 	public $domain = '';
 	public $subdomain = '';
