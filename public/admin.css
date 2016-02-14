@@ -2,11 +2,11 @@
 	overflow: hidden;
 }
 
-.group--location .control-group {
+.group--location .form-group {
 	float: left;
 }
 
-.group--location .control-group + .control-group {
+.group--location .form-group + .form-group {
 	margin-left: 0;
 }
 
