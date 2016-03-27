@@ -11,7 +11,7 @@
 
 namespace Icybee\Modules\Sites\Operation;
 
-use ICanBoogie\Errors;
+use ICanBoogie\ErrorCollection;
 use ICanBoogie\Operation;
 
 use Icybee\Modules\Sites\Module;
@@ -33,7 +33,10 @@ class StatusOperation extends Operation
 		] + parent::get_controls();
 	}
 
-	protected function validate(Errors $errors)
+	/**
+	 * @inheritdoc
+	 */
+	protected function validate(ErrorCollection $errors)
 	{
 		if ($this->request->is_put)
 		{
@@ -41,11 +44,11 @@ class StatusOperation extends Operation
 
 			if ($status === null || !in_array($status, [ Site::STATUS_OK, Site::STATUS_UNAVAILABLE, Site::STATUS_UNAUTHORIZED, Site::STATUS_NOT_FOUND ]))
 			{
-				throw new \InvalidArgumentException('Invalid status value.');
+				$errors->add('status', "Invalid status value.");
 			}
 		}
 
-		return true;
+		return $errors;
 	}
 
 	protected function process()
