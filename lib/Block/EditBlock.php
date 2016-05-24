@@ -125,7 +125,7 @@ class EditBlock extends \Icybee\Block\EditBlock
 
 				Group::LABEL => 'Email',
 				Element::REQUIRED => true,
-				Element::VALIDATOR => [ 'Brickrouge\Form::validate_email' ],
+				Element::VALIDATION => 'email',
 				Element::DESCRIPTION => "The site's email is usually used as default sender email,
 				but can also be used as a contact address."
 
