@@ -75,7 +75,7 @@ class StatusColumn extends Column
 
 		return <<<EOT
 <div class="btn-group" data-property="status" data-site-id="$site_id" data-classes="$classes_json">
-	<span class="btn $status_class dropdown-toggle" data-toggle="dropdown"><span class="text">$status_label</span> <span class="caret"></span></span>
+	<span class="btn btn-sm $status_class dropdown-toggle" data-toggle="dropdown"><span class="text">$status_label</span> <span class="caret"></span></span>
 	$menu
 </div>
 EOT;
