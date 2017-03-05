@@ -11,12 +11,7 @@
 
 namespace ICanBoogie;
 
-chdir(__DIR__);
+class Application extends \Icybee\Application
+{
 
-require __DIR__ . '/../vendor/autoload.php';
-
-$_SERVER['SERVER_NAME'] = 'server' . uniqid();
-$_SERVER['SERVER_PORT'] = 80;
-
-$app = boot();
-$app->modules->install();
+}

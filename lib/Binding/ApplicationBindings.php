@@ -14,12 +14,12 @@ namespace Icybee\Modules\Sites\Binding;
 use Icybee\Modules\Sites\Site;
 
 /**
- * {@link \ICanBoogie\Core} prototype bindings.
+ * {@link \ICanBoogie\Application} prototype bindings.
  *
  * @property-read Site $site
  * @property-read int $site_id
  */
-trait CoreBindings
+trait ApplicationBindings
 {
 
 }

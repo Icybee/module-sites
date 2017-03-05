@@ -13,13 +13,13 @@ namespace Icybee\Modules\Sites;
 
 use ICanBoogie\ActiveRecord;
 
+use ICanBoogie\Binding\PrototypedBindings;
 use Icybee\Modules\Pages\Page;
 use Icybee\Modules\Registry\Binding\SiteBindings as RegistryBindings;
 
 /**
  * Representation of a website.
  *
- * @property-read \ICanBoogie\Core $app
  * @property array $translations Translations for the site.
  *
  * @method Page|null resolve_view_target() resolve_view_target(string $view)
@@ -37,9 +37,10 @@ use Icybee\Modules\Registry\Binding\SiteBindings as RegistryBindings;
  */
 class Site extends ActiveRecord
 {
+	use PrototypedBindings;
 	use RegistryBindings;
-	use ActiveRecord\CreatedAtProperty;
-	use ActiveRecord\UpdatedAtProperty;
+	use ActiveRecord\Property\CreatedAtProperty;
+	use ActiveRecord\Property\UpdatedAtProperty;
 
 	const MODEL_ID = 'sites';
 

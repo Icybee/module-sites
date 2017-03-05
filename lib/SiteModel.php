@@ -12,7 +12,6 @@
 namespace Icybee\Modules\Sites;
 
 use ICanBoogie\ActiveRecord;
-use ICanBoogie\Core;
 use ICanBoogie\HTTP\Request;
 use Icybee\Modules\Sites\Helpers\ProvideSites;
 

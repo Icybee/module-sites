@@ -24,15 +24,20 @@
 	"prefer-stable": true,
 	"prefer-dist": true,
 	"require": {
-		"php": ">=5.5",
+		"php": ">=5.6",
 		"icanboogie/module-installer": "^1.2",
-		"icybee/core": "^3.0",
-		"icybee/module-registry": "^3.0"
+		"icybee/core": "^4.0",
+		"icybee/module-registry": "^4.0"
 	},
 	"autoload": {
 		"psr-4": {
 			"Icybee\\Modules\\Sites\\": "lib"
 		}
+	},
+	"autoload-dev": {
+		"classmap": [
+			"tests/Application.php"
+		]
 	},
 	"scripts": {
 		"post-autoload-dump": "ICanBoogie\\Autoconfig\\Hooks::on_autoload_dump"

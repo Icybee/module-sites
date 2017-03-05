@@ -14,7 +14,7 @@ namespace Icybee\Modules\Sites;
 use ICanBoogie\Binding\ActiveRecord\CoreBindings as ActiveRecordCoreBindings;
 use ICanBoogie\Binding\CLDR\CoreBindings as CLDRRecordCoreBindings;
 use ICanBoogie\ActiveRecord;
-use ICanBoogie\Core;
+use ICanBoogie\Application;
 use ICanBoogie\HTTP\RequestDispatcher;
 use ICanBoogie\HTTP\RedirectResponse;
 use ICanBoogie\HTTP\Request;
@@ -24,7 +24,7 @@ use Icybee\Modules\Members\Member;
 use Icybee\Modules\Nodes\Node;
 use Icybee\Modules\Users\Binding\CoreBindings as UserCoreBindings;
 use Icybee\Modules\Sites\Binding\ContextBindings;
-use Icybee\Modules\Sites\Binding\CoreBindings;
+use Icybee\Modules\Sites\Binding\ApplicationBindings;
 
 class Hooks
 {
@@ -37,7 +37,7 @@ class Hooks
 	 * {@link Routing\decontextualize()} helpers are patched.
 	 *
 	 * @param Core\RunEvent $event
-	 * @param Core|CoreBindings|ActiveRecordCoreBindings|CLDRRecordCoreBindings $app
+	 * @param Core|ApplicationBindings|ActiveRecordCoreBindings|CLDRRecordCoreBindings $app
 	 */
 	static public function on_core_run(Core\RunEvent $event, Core $app)
 	{
@@ -211,7 +211,7 @@ class Hooks
 	 * $app->site;
 	 * ```
 	 *
-	 * @param Core|CoreBindings $app
+	 * @param Core|ApplicationBindings $app
 	 *
 	 * @return Site
 	 */
@@ -229,7 +229,7 @@ class Hooks
 	 * $app->site_id;
 	 * ```
 	 *
-	 * @param Core|CoreBindings $app
+	 * @param Core|ApplicationBindings $app
 	 *
 	 * @return int
 	 */
@@ -279,7 +279,7 @@ class Hooks
 	 */
 
 	/**
-	 * @return Core|CoreBindings|ActiveRecordCoreBindings|UserCoreBindings
+	 * @return Core|ApplicationBindings|ActiveRecordCoreBindings|UserCoreBindings
 	 */
 	static private function app()
 	{

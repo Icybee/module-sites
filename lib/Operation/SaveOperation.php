@@ -17,8 +17,6 @@ use Icybee\Modules\Sites\Site;
  * Creates or updates a website.
  *
  * @property Site $record
- *
- * @property-read \ICanBoogie\Core|\Icybee\Modules\Sites\Binding\CoreBindings $app
  */
 class SaveOperation extends \ICanBoogie\Module\Operation\SaveOperation
 {

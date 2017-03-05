@@ -12,8 +12,6 @@
 namespace Icybee\Modules\Sites\Helpers;
 
 use ICanBoogie\ActiveRecord;
-use ICanBoogie\Core;
-
 use Icybee\Modules\Sites\Site;
 
 /**
