@@ -11,7 +11,10 @@
 
 namespace ICanBoogie;
 
+use Icybee\Modules;
+
 class Application extends \Icybee\Application
 {
-
+	use Modules\Sites\Binding\ApplicationBindings;
+	use Modules\Registry\Binding\ApplicationBindings;
 }

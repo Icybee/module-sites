@@ -11,8 +11,7 @@
 
 namespace Icybee\Modules\Sites;
 
-use ICanBoogie\Binding\ActiveRecord\CoreBindings as ActiveRecordCoreBindings;
-use ICanBoogie\Binding\CLDR\CoreBindings as CLDRRecordCoreBindings;
+use function ICanBoogie\app;
 use ICanBoogie\ActiveRecord;
 use ICanBoogie\Application;
 use ICanBoogie\HTTP\RequestDispatcher;
@@ -22,24 +21,22 @@ use ICanBoogie\Routing;
 
 use Icybee\Modules\Members\Member;
 use Icybee\Modules\Nodes\Node;
-use Icybee\Modules\Users\Binding\CoreBindings as UserCoreBindings;
 use Icybee\Modules\Sites\Binding\ContextBindings;
-use Icybee\Modules\Sites\Binding\ApplicationBindings;
 
 class Hooks
 {
 	/**
-	 * Initializes the {@link Core::$site}, {@link Core::$locale} and {@link Core::$timezone}
-	 * properties of the core object. The {@link Core::$timezone} property is only initialized is
-	 * it is defined be the site.
+	 * Initializes the {@link Application::$site}, {@link Application::$locale}
+	 * and {@link Application::$timezone} properties of the core object. The
+	 * {@link Application::$timezone} property is only initialized is it is defined be the site.
 	 *
 	 * If the current site has a path, the {@link Routing\contextualize()} and
 	 * {@link Routing\decontextualize()} helpers are patched.
 	 *
-	 * @param Core\RunEvent $event
-	 * @param Core|ApplicationBindings|ActiveRecordCoreBindings|CLDRRecordCoreBindings $app
+	 * @param Application\RunEvent $event
+	 * @param Application $app
 	 */
-	static public function on_core_run(Core\RunEvent $event, Core $app)
+	static public function on_core_run(Application\RunEvent $event, Application $app)
 	{
 		#
 		# If the ICanBoogie\ActiveRecord\StatementNotValid is raised it might be because the
@@ -104,7 +101,7 @@ class Hooks
 	 */
 	static public function before_http_dispatcher_dispatch(RequestDispatcher\BeforeDispatchEvent $event, RequestDispatcher $target)
 	{
-		$app = self::app();
+		$app = app();
 
 		if ($app->site_id)
 		{
@@ -193,7 +190,7 @@ class Hooks
 			return null;
 		}
 
-		$app = self::app();
+		$app = app();
 
 		return $app->site_id == $node->site_id
 			? $app->site
@@ -203,7 +200,7 @@ class Hooks
 	/**
 	 * Returns the active record for the current site.
 	 *
-	 * This is the getter for the core's {@link Core::$site} magic property.
+	 * This is the getter for the core's {@link Application::$site} magic property.
 	 *
 	 * ```php
 	 * <?php
@@ -211,11 +208,11 @@ class Hooks
 	 * $app->site;
 	 * ```
 	 *
-	 * @param Core|ApplicationBindings $app
+	 * @param Application $app
 	 *
 	 * @return Site
 	 */
-	static public function get_core_site(Core $app)
+	static public function get_core_site(Application $app)
 	{
 		return $app->request->context['site'];
 	}
@@ -229,11 +226,11 @@ class Hooks
 	 * $app->site_id;
 	 * ```
 	 *
-	 * @param Core|ApplicationBindings $app
+	 * @param Application $app
 	 *
 	 * @return int
 	 */
-	static public function get_core_site_id(Core $app)
+	static public function get_core_site_id(Application $app)
 	{
 		return $app->request->context['site_id'];
 	}
@@ -272,17 +269,5 @@ class Hooks
 	static public function get_site_id_for_request_context(Request\Context $context)
 	{
 		return $context->site ? $context->site->site_id : null;
-	}
-
-	/*
-	 * Support
-	 */
-
-	/**
-	 * @return Core|ApplicationBindings|ActiveRecordCoreBindings|UserCoreBindings
-	 */
-	static private function app()
-	{
-		return \ICanBoogie\app();
 	}
 }
