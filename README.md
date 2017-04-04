@@ -12,7 +12,7 @@ The Site module (`sites`) manages the websites served by [Icybee][].
 
 
 
-### `ICanBoogie\Core::run`
+### `ICanBoogie\Application::run`
 
 Initializes the `site`, `locale` and `timezone` properties of the core object. If the website has
 a base path, the `contextualize()` and `decontextualize()` helpers of the [Routing](https://github.com/ICanBoogie/Routing)
@@ -50,7 +50,7 @@ $app->models['nodes']->one->site;
 
 
 
-### `ICanBoogie\Core::get_site`
+### `ICanBoogie\Application::get_site`
 
 Returns the website matching the current request.
 
@@ -66,7 +66,7 @@ $app->request->context->site;
 
 
 
-### `ICanBoogie\Core::get_site_id`
+### `ICanBoogie\Application::get_site_id`
 
 Returns the identifier of the website matching the current request.
 

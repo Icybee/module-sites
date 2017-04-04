@@ -29,6 +29,9 @@
 		"icybee/core": "^4.0",
 		"icybee/module-registry": "^4.0"
 	},
+	"require-dev": {
+		"icanboogie/bind-facets": "^0.7"
+	},
 	"autoload": {
 		"psr-4": {
 			"Icybee\\Modules\\Sites\\": "lib"
